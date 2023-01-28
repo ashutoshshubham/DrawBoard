@@ -51,33 +51,41 @@ const Drawboard = () => {
     const clear = () => {
         setContent([])
     }
-    
+
 
 
     return (
         <div className="body1">
-            <div className='container'style={{height:'93vh'}}>
-                <div className="card" style={{height:'90vh'}}>
+            <div className='container' style={{ height: '93vh' }}>
+                <div className="card" style={{ height: '90vh' }}>
                     <div className="card-header">
                         <h3>Drawboard</h3>
                     </div>
                     <div className="card-body">
                         <div className="row">
                             <div className="col-md-2 bg-primary">
-                                <button className='btn btn-success mb-2 d-block' onClick={rectangle}>Rectangle</button>
-                                <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
-                                <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
+                                <button className='btn btn-success mb-2 d-block' onClick={rectangle}>
+                                    <span class="material-symbols-outlined" onClick={rectangle}>
+                                        rectangle
+                                    </span>
+                                </button>
+                                <button className='btn btn-success mb-2 d-block' onClick={circle}><span class="material-symbols-outlined">
+                                    radio_button_unchecked
+                                </span></button>
+                                <button className='btn btn-success mb-2 d-block' onClick={clear}><span class="material-symbols-outlined">
+                                    delete
+                                </span></button>
                             </div>
-                            
-                            <div className="col-md-10 bg-success" ref={canvasContainer} style={{height: '100%'}}>
-                                <Stage width={canvasContainer.current.innerWidth} height={canvasContainer.current.innerHeight}>
-                                {/* <Stage> */}
+
+                            <div className="col-md-10 bg-success" ref={canvasContainer} style={{ height: '100%' }}>
+                                <Stage width={window.innerWidth} height={window.innerHeight}>
+                                    {/* <Stage> */}
                                     <Layer>
                                         {showContent()}
                                     </Layer>
                                 </Stage>
                             </div>
-                            
+
                         </div>
 
                     </div>
