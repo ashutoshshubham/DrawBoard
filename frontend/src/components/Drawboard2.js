@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Stage, Layer, Rect, Text, Circle, Line, Transformer } from 'react-konva';
 import './Drawboard.css';
 
 const Drawboard = () => {
 
-    const [content, setContent] = useState([])
+    const [content, setContent] = useState([]);
+    const canvasContainer = useRef(null);
 
     const createShape = ({ name, x, y, w, h, stroke, r }) => {
         if (name === 'rectangle') {
@@ -50,6 +51,7 @@ const Drawboard = () => {
     const clear = () => {
         setContent([])
     }
+    
 
 
     return (
@@ -61,14 +63,14 @@ const Drawboard = () => {
                     </div>
                     <div className="card-body">
                         <div className="row">
-                            <div className="col-md-2 bg-primary toolBox">
+                            <div className="col-md-2 bg-primary">
                                 <button className='btn btn-success mb-2 d-block' onClick={rectangle}>Rectangle</button>
                                 <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
                                 <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
                             </div>
                             
-                            <div className="col-md-10 bg-success">
-                                <Stage width={window.innerWidth} height={window.innerHeight}>
+                            <div className="col-md-10 bg-success" ref={canvasContainer} style={{height: '100%'}}>
+                                <Stage width={canvasContainer.current.innerWidth} height={canvasContainer.current.innerHeight}>
                                 {/* <Stage> */}
                                     <Layer>
                                         {showContent()}

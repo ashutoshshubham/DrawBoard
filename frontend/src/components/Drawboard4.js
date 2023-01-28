@@ -51,53 +51,62 @@ const Drawboard4 = () => {
     setContent([])
   }
 
+  const resize = () => {
+    window.resizeTo(
+      {
+        width: '720px',
+        height: '720px'
+      }
+    )
+  }
 
 
   return (
     <div className="body1">
       <div className='container'>
-        {/* <div className="card" style={{ height: '90vh' }}> */}
-        <div className="card" width={window.innerWidth} height={window.innerHeight}>
-        <div className="card-header">
-          <h3>DrawBoard</h3>
-        </div>
-        <div className="card-body">
-          <div className="row">
-            <div className="col-md-2 bg-danger" style={{width:130}}>
-              <button className='btn btn-success mb-2 d-block' onClick={rectangle}>Rectangle</button>
-              <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
-              <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
-            </div>
+        {/* //     <div className="card" style={{ height: '90vh' }}>
+    //     <div className="card" width={window.innerWidth} height={window.innerHeight}>
+    //     <div className="card-header">
+    //       <h3>DrawBoard</h3>
+    //     </div>
+    //     <div className="card-body">
+    //       <div className="row">
+    //         <div className="col-md-2 bg-danger" style={{width:130}}>
+    //           <button className='btn btn-success mb-2 d-block' onClick={rectangle}>Rectangle</button>
+    //           <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
+    //           <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
+    //         </div>
 
-            <div className="col-md-10 bg-primary" style={{width:'74vw'}}>
-              <Stage width={window.innerWidth} height={window.innerHeight}>
-                <Layer>
-                  {showContent()}
-                </Layer>
-              </Stage>
+    //         <div className="col-md-10 bg-primary" style={{width:'74vw'}}>
+    //           <Stage width={window.innerWidth} height={window.innerHeight}>
+    //             <Layer>
+    //               {showContent()}
+    //             </Layer>
+    //           </Stage>
 
-            </div>
-          </div>
-        </div>
-      </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div> */}
 
 
-        {/* <div className="row">
+        <div className="row">
           <div className="col-md-2 bg-danger" style={{ width: 130 }}>
             <button className='btn btn-success mb-2 d-block mt-3' onClick={rectangle}>Rectangle</button>
             <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
             <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
           </div>
 
-          <div className="col-md-10" style={{ width: '74vw' }}>
+          <div className="col-md-10" style={{ width: '74vw', height:'94vh'}}>
             <Stage width={window.innerWidth} height={window.innerHeight}>
+            {/* <Stage> */}
               <Layer>
                 {showContent()}
               </Layer>
             </Stage>
 
           </div>
-        </div> */}
+        </div>
 
       </div>
     </div>
