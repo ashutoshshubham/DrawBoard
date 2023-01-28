@@ -1,0 +1,13 @@
+/* h1{
+    color: red;
+} */
+
+.nav-item .active{
+    font-weight: bold;
+    color: red !important;
+    
+    border-bottom: 2px solid red;
+    max-width: fit-content;
+
+    /* text-decoration: underline; */
+}
