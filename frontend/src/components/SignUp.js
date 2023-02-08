@@ -35,7 +35,6 @@ const Signup = () => {
                 title : 'Success',
                 text : 'Signed Successfully' 
             })
-            navigate('/state');
         }
 
     }

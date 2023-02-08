@@ -75,7 +75,7 @@ const Login2 = () => {
         title : 'Success',
         text : 'Login Successful'
       })
-      navigate('/chat');
+      navigate('/board4');
     }
     else if (res.status === 401){
       Swal.fire({

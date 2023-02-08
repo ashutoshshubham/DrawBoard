@@ -3,7 +3,7 @@ const express = require('express');          //method to import any package, her
 //import userRouter
 const userRouter = require('./routers/userRouter');
 
-const productRouter = require('./routers/productRouter');
+
 
 const cors = require('cors')         //to allow request from frontend to backend
 
@@ -33,26 +33,7 @@ app.use(cors({
 
 app.use(express.json());                 //convert data from json to js
 app.use('/user', userRouter);            //sending request to userRouter
-app.use('/product',productRouter);
 
-
-
-//creating a route
-app.get('/', (req, res) => {
-    res.send('response from index');
-})
-
-app.get('/home', (req, res) => {
-    res.send('response from home');
-})
-
-app.get('/add', (req, res) => {
-    res.send('response from add')
-})
-
-app.get('/delete', (req, res) => {
-    res.send('response from delete')
-})
 
 
 

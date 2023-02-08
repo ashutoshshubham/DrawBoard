@@ -13,8 +13,24 @@ const Drawboard4 = () => {
     if (name === 'circle') {
       return <Circle x={x} y={y} stroke={stroke} radius={r} draggable />
     }
-    else {
-
+    if (name === 'line') {
+      return (
+        lines.map((line, i) => (
+          <Line
+            draggable
+            // key={i}
+            points={line.points}
+            stroke="#df4b26"
+            strokeWidth={5}
+            tension={0.5}
+            lineCap="round"
+            lineJoin="round"
+            globalCompositeOperation={
+              line.tool === 'eraser' ? 'destination-out' : 'source-over'
+            }
+          />
+        ))
+      )
     }
   }
 
@@ -47,67 +63,89 @@ const Drawboard4 = () => {
     setContent([...content, shape])
   }
 
-  const clear = () => {
-    setContent([])
+  const line = () => {
+    const shape = {
+      name: 'line'
+    }
+    setContent([...content, shape])
   }
 
-  const resize = () => {
-    window.resizeTo(
-      {
-        width: '720px',
-        height: '720px'
-      }
-    )
+  const clear = () => {
+    setContent([])
+    setLines([])
   }
+
+  const [tool, setTool] = React.useState('pen');
+  const [lines, setLines] = React.useState([]);
+  const isDrawing = React.useRef(false);
+
+  const handleMouseDown = (e) => {
+    isDrawing.current = true;
+    const pos = e.target.getStage().getPointerPosition();
+    setLines([...lines, { tool, points: [pos.x, pos.y] }]);
+  };
+
+  const handleMouseMove = (e) => {
+    // no drawing - skipping
+    if (!isDrawing.current) {
+      return;
+    }
+    const stage = e.target.getStage();
+    const point = stage.getPointerPosition();
+    let lastLine = lines[lines.length - 1];
+    // add point
+    lastLine.points = lastLine.points.concat([point.x, point.y]);
+
+    // replace last
+    lines.splice(lines.length - 1, 1, lastLine);
+    setLines(lines.concat());
+  };
+
+  const handleMouseUp = () => {
+    isDrawing.current = false;
+  };
 
 
   return (
     <div className="body1">
       <div className='container'>
-        {/* //     <div className="card" style={{ height: '90vh' }}>
-    //     <div className="card" width={window.innerWidth} height={window.innerHeight}>
-    //     <div className="card-header">
-    //       <h3>DrawBoard</h3>
-    //     </div>
-    //     <div className="card-body">
-    //       <div className="row">
-    //         <div className="col-md-2 bg-danger" style={{width:130}}>
-    //           <button className='btn btn-success mb-2 d-block' onClick={rectangle}>Rectangle</button>
-    //           <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
-    //           <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
-    //         </div>
-
-    //         <div className="col-md-10 bg-primary" style={{width:'74vw'}}>
-    //           <Stage width={window.innerWidth} height={window.innerHeight}>
-    //             <Layer>
-    //               {showContent()}
-    //             </Layer>
-    //           </Stage>
-
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div> */}
-
-
-        <div className="row">
-          <div className="col-md-2 bg-danger" style={{ width: 130 }}>
-            <button className='btn btn-success mb-2 d-block mt-3' onClick={rectangle}>Rectangle</button>
-            <button className='btn btn-success mb-2 d-block' onClick={circle}>Circle</button>
-            <button className='btn btn-success mb-2 d-block' onClick={clear}>Clear</button>
+        <div className="card">
+          <div className="card-header">
+            <h3>Drawboard</h3>
           </div>
+          {/* </div> */}
+          <div className='d-flex'>
+            <div className='m-1'>
+              <button className='btn btn-success mb-2 d-block mt-4' onClick={rectangle}>
+                <span class="material-symbols-outlined">
+                  rectangle
+                </span>
+              </button>
+              <button className='btn btn-success mb-2 d-block' onClick={circle}><span class="material-symbols-outlined">
+                radio_button_unchecked
+              </span></button>
+              <button className='btn btn-success mb-2 d-block' onClick={line}>
+                <span class="material-symbols-outlined">
+                  edit
+                </span>
+              </button>
+              <button className='btn btn-success mb-2 d-block' onClick={clear}><span class="material-symbols-outlined">
+                delete
+              </span></button>
+            </div>
 
-          <div className="col-md-10" style={{ width: '74vw', height:'94vh'}}>
-            <Stage width={window.innerWidth} height={window.innerHeight}>
-            {/* <Stage> */}
-              <Layer>
-                {showContent()}
-              </Layer>
-            </Stage>
-
+            <div>
+              <Stage width={window.innerWidth - 320} height={window.innerHeight - 140} onMouseDown={handleMouseDown}
+                onMousemove={handleMouseMove}
+                onMouseup={handleMouseUp} style={{ width: '79vw', }}>
+                {/* <Stage> */}
+                <Layer>
+                  {showContent()}
+                </Layer>
+              </Stage>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
 

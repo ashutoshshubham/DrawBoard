@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');          //write req and press enter
 
 
-const dbName = 'MERN_stack';       //no space between name
+const dbName = 'DrawBoard';       //no space between name
 
 const url = `mongodb+srv://ashutoshshubham:ashutosh@cluster0.cqjsjz0.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
